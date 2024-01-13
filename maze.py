@@ -1,5 +1,6 @@
 #import random library
 import random
+from collections import deque
 from colorama import Fore
 
 
@@ -39,6 +40,47 @@ def PrintMaze(N,maze):
 #maze funtion  calling
 GenerateMaze(N,maze) 
 
-#
+#Reset colors
 print(Fore.RESET)
-print(maze)
+
+
+# Bfs algorithm for path find in 2D maze
+def PathFind(N,maze):
+    start=[0,0]
+    queue=deque([(start,[])])
+    visited=[]
+
+    while queue:
+        current,path=queue.popleft()
+        x,y=current
+
+        if(maze[x][y]=="E"):
+            return path + [x,y]
+
+        if(current not in visited):
+            visited.append(current)    
+
+            neighbors=get_neighbors(N,maze,current)
+            for neighbor in neighbors:
+                queue.append((neighbor, path+[current]))
+
+    return "No path found from S to E"     
+
+
+# Function call from pathFind to check next indexes
+def get_neighbors(N,maze,current):
+    x,y=current
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # Up, Down, Left, Right
+    neighbors = []
+
+    for dx, dy in directions:
+        nx, ny = x + dx, y + dy
+
+        if(nx>=0 and nx<N and ny>=0 and ny<N and maze[nx][ny]!="▓"):
+            neighbors.append((nx, ny))
+    return neighbors
+
+#
+# calling pathfind and store result
+result=PathFind(N,maze)
+print(result)  
