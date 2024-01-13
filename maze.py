@@ -40,11 +40,11 @@ def PrintMaze(N,maze):
 #maze funtion  calling
 GenerateMaze(N,maze) 
 
-#
+#Reset colors
 print(Fore.RESET)
-#print(maze)
 
-# Bfs algoritham for path find in 2D maze
+
+# Bfs algorithm for path find in 2D maze
 def PathFind(N,maze):
     start=[0,0]
     queue=deque([(start,[])])
