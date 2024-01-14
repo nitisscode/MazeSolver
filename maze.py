@@ -25,6 +25,9 @@ def GenerateMaze(N,maze):
 
 # maze printing function
 def PrintMaze(N,maze):
+    print("Generated Path")
+    print()
+
     for i in range(N):
         for j in range(N):
             
@@ -118,18 +121,34 @@ def Path_Marking(result,maze):
         print()            
 
 
-
+result=PathFind(N,maze)
                       
-                            
+def main():
+    global maze
+    print("1. Print the Path")
+    print("2. Generate another Puzzle")
+    print("3. Exit the Game")
+    choose=input("Enter your choice: ")
+    
+    if(choose=="1"):
+        Path_Marking(result,maze)
+    elif(choose=="2"):
+        maze=[]
+        GenerateMaze(N,maze) 
+    elif(choose=="3"):
+        print("Exit...")        
+
+main()         
+
 
 
 
 # calling pathfind function and store result
-result=PathFind(N,maze)
+
 #calling printpath function
-PrintPath(result,maze)  
+#PrintPath(result,maze)  
 #calling path Marking function for mark the path in maze
-Path_Marking(result,maze)
+#Path_Marking(result,maze)
 
 #Reset colors
 print(Fore.RESET)
