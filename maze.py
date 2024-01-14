@@ -6,13 +6,14 @@ from colorama import Fore
 
 #blank maze array for maki it a 2D array and N for the maze size
 maze=[]
-N=int(input("Enter the size of the maze: "))
+N=0
 
 # maze generator function
-def GenerateMaze(N,maze):
-    
+def GenerateMaze(maze):
+    global N
+    N=int(input("Enter the size of the maze(n*n): "))
     for i in range(N):
-        arr=random.choices(["▓","◌"],weights=(25,75),k=N)
+        arr=random.choices(["▓","◌"],weights=(25,80),k=N)
 
         maze.append(arr)  
 
@@ -25,8 +26,8 @@ def GenerateMaze(N,maze):
 
 # maze printing function
 def PrintMaze(N,maze):
-    print("Generated Path")
-    print()
+    print("Generated Maze:")
+
 
     for i in range(N):
         for j in range(N):
@@ -40,13 +41,16 @@ def PrintMaze(N,maze):
             elif(maze[i][j]=="S" or maze[i][j]=="E"):
                 print(Fore.GREEN+maze[i][j],end=" ")    
        
-        print()          
+        print()
+    
+    print(Fore.RESET) #Reset colors    
+    
+    main()   #main function caaling             
     
 
 
 
-#maze funtion  calling
-GenerateMaze(N,maze) 
+ 
 
 #Reset colors
 print(Fore.RESET)
@@ -90,11 +94,9 @@ def get_neighbors(N,maze,current):
 
 
 #path print function for print path in indexes
-def PrintPath(result,maze):
-    if(result==False):
-        print("No path found from S to E")
-    else:
-        print(result)
+def PrintPath(result):
+    
+    print(result)
 
 def Path_Marking(result,maze):
     if(result==False):
@@ -113,15 +115,20 @@ def Path_Marking(result,maze):
     for i in range(len(maze)):
         for j in range(len(maze)):
             if(maze[i][j]=="▓"):
-                print(Fore.RED+maze[i][j],end=" ")
+                print(Fore.RED+maze[i][j],end="  ")
             elif(maze[i][j]=="◌"):
-                print(Fore.BLUE+maze[i][j],end=" ")
+                print(Fore.BLUE+maze[i][j],end="  ")
             elif(maze[i][j]=="S" or maze[i][j]=="E" or maze[i][j]=="◍"):
-                print(Fore.GREEN+maze[i][j],end=" ")
-        print()            
+                print(Fore.GREEN+maze[i][j],end="  ")
+        print()
+    
+    print(Fore.RESET)   #Reset colors
+    
+    PrintPath(result)  #function calling for indexs of path 
+    
+    
+                   
 
-
-result=PathFind(N,maze)
                       
 def main():
     global maze
@@ -131,24 +138,22 @@ def main():
     choose=input("Enter your choice: ")
     
     if(choose=="1"):
+        result=PathFind(N,maze)
         Path_Marking(result,maze)
     elif(choose=="2"):
         maze=[]
-        GenerateMaze(N,maze) 
+        GenerateMaze(maze) 
     elif(choose=="3"):
-        print("Exit...")        
+        print("Exit...!")        
 
-main()         
-
-
+      
 
 
-# calling pathfind function and store result
 
-#calling printpath function
-#PrintPath(result,maze)  
-#calling path Marking function for mark the path in maze
-#Path_Marking(result,maze)
+
+
+#maze funtion  calling
+GenerateMaze(maze)
 
 #Reset colors
 print(Fore.RESET)
