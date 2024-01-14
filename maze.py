@@ -28,7 +28,6 @@ def GenerateMaze(maze):
 def PrintMaze(N,maze):
     print("Generated Maze:")
 
-
     for i in range(N):
         for j in range(N):
             
@@ -47,14 +46,6 @@ def PrintMaze(N,maze):
     
     main()   #main function caaling             
     
-
-
-
- 
-
-#Reset colors
-print(Fore.RESET)
-
 
 # Bfs algorithm for path find in 2D maze
 def PathFind(N,maze):
@@ -95,9 +86,11 @@ def get_neighbors(N,maze,current):
 
 #path print function for print path in indexes
 def PrintPath(result):
-    
+    print("Maze path in indexes:")
     print(result)
 
+
+#function for path marking and print
 def Path_Marking(result,maze):
     if(result==False):
         print("No path found from S to E")
@@ -115,21 +108,19 @@ def Path_Marking(result,maze):
     for i in range(len(maze)):
         for j in range(len(maze)):
             if(maze[i][j]=="▓"):
-                print(Fore.RED+maze[i][j],end="  ")
+                print(Fore.RED+maze[i][j],end=" ")
             elif(maze[i][j]=="◌"):
-                print(Fore.BLUE+maze[i][j],end="  ")
+                print(Fore.BLUE+maze[i][j],end=" ")
             elif(maze[i][j]=="S" or maze[i][j]=="E" or maze[i][j]=="◍"):
-                print(Fore.GREEN+maze[i][j],end="  ")
+                print(Fore.GREEN+maze[i][j],end=" ")
         print()
     
     print(Fore.RESET)   #Reset colors
     
     PrintPath(result)  #function calling for indexs of path 
-    
-    
-                   
 
-                      
+
+#main function for user to choose options                    
 def main():
     global maze
     print("1. Print the Path")
@@ -148,12 +139,7 @@ def main():
 
       
 
-
-
-
-
 #maze funtion  calling
 GenerateMaze(maze)
 
-#Reset colors
-print(Fore.RESET)
+
