@@ -10,7 +10,7 @@ N=int(input("Enter the size of the maze: "))
 
 # maze generator function
 def GenerateMaze(N,maze):
-    #s=["◌","▓"]
+    
     for i in range(N):
         arr=random.choices(["▓","◌"],weights=(25,75),k=N)
 
@@ -69,7 +69,7 @@ def PathFind(N,maze):
             for neighbor in neighbors:
                 queue.append((neighbor, path+[current]))
 
-    return "No path found from S to E"     
+    return False     
 
 
 # Function call from pathFind to check next indexes
@@ -87,10 +87,49 @@ def get_neighbors(N,maze,current):
 
 
 #path print function for print path in indexes
-def PrintPath(result):
-    print(result)
+def PrintPath(result,maze):
+    if(result==False):
+        print("No path found from S to E")
+    else:
+        print(result)
+
+def Path_Marking(result,maze):
+    if(result==False):
+        print("No path found from S to E")
+        return 
+    for i in range(len(result)):
+        x,y=result[i]
+        if((x==0 and y==0) or (x==len(maze)-1 and y==len(maze)-1)):
+            continue
+        else:
+            for j in range(len(maze)):
+                for k in range(len(maze)):
+                    if(j==x and k==y):
+                        maze[j][k]="◍"
+                
+    for i in range(len(maze)):
+        for j in range(len(maze)):
+            if(maze[i][j]=="▓"):
+                print(Fore.RED+maze[i][j],end=" ")
+            elif(maze[i][j]=="◌"):
+                print(Fore.BLUE+maze[i][j],end=" ")
+            elif(maze[i][j]=="S" or maze[i][j]=="E" or maze[i][j]=="◍"):
+                print(Fore.GREEN+maze[i][j],end=" ")
+        print()            
 
 
-# calling pathfind function and store result and calling printpath function
+
+                      
+                            
+
+
+
+# calling pathfind function and store result
 result=PathFind(N,maze)
-PrintPath(result)  
+#calling printpath function
+PrintPath(result,maze)  
+#calling path Marking function for mark the path in maze
+Path_Marking(result,maze)
+
+#Reset colors
+print(Fore.RESET)
